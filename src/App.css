@@ -1,0 +1,15 @@
+@font-face {
+	font-family: "gill-sans-condensed-bold";
+	src: local("Gill Sans Condensed Bold"),
+		url("../src/assets/fonts/Gill-Sans-Condensed-Bold.ttf")
+			format("truetype");
+	font-weight: bold;
+}
+
+#root {
+	box-sizing: border-box;
+	margin: 0 auto;
+	text-align: center;
+	background-color: white;
+	font-family: "gill-sans-condensed-bold";
+}
