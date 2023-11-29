@@ -15,11 +15,9 @@ function CardList({ keyword }) {
 	}, [keyword, pokemons]);
 
 	return (
-		<div className="container mx-auto p-8 pt-0 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-10">
+		<div className="container h-3/4 overflow-auto mx-auto p-4 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-10">
 			{filteredPokemons.map((pokemon, index) => (
-				<div key={index}>
-					<Card pokemon={pokemon.name} />
-				</div>
+				<Card key={index} pokemon={pokemon.name} />
 			))}
 		</div>
 	);

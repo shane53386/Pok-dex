@@ -2,6 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
 	types: [],
+	selectedType: [],
 };
 
 const typeSlice = createSlice({
@@ -10,10 +11,14 @@ const typeSlice = createSlice({
 	reducers: {
 		getTypes: (state, action) => {
 			state.types = action.payload;
-      console.log(current(state));
+			console.log(current(state));
+		},
+		getSelectedType: (state, action) => {
+			state.selectedType = action.payload;
+			console.log(current(state));
 		},
 	},
 });
 
-export const { getTypes } = typeSlice.actions;
+export const { getTypes, getSelectedType } = typeSlice.actions;
 export default typeSlice.reducer;
