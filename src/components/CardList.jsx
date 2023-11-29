@@ -17,9 +17,7 @@ function CardList({ keyword }) {
 	return (
 		<div className="container mx-auto p-8 pt-0 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-10">
 			{filteredPokemons.map((pokemon, index) => (
-				// console.log(pokemon);
 				<div key={index}>
-					<p>{pokemon.name}</p>
 					<Card pokemon={pokemon.name} />
 				</div>
 			))}
