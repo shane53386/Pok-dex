@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Badge from "./Badge";
 import { Link } from "react-router-dom";
 import pokeAPI from "../api/pokeAPI";
+import { useSelector } from "react-redux";
 
 function Card({ pokemon }) {
 	const [pokemonData, setPokemonData] = useState(null);
+	const [pokemonType, setPokemonType] = useState([]);
+	const { selectedType } = useSelector((state) => state.types);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -18,33 +21,42 @@ function Card({ pokemon }) {
 		fetchData();
 	}, [pokemon]);
 
+	useEffect(() => {
+		if (pokemonData) {
+			setPokemonType(pokemonData.types.map((type) => type.type.name));
+		}
+	}, [pokemonData]);
+
+	const typeCondition = () => {
+		return selectedType.some((selected) => pokemonType.includes(selected));
+	};
+
+	if (!pokemonData || !typeCondition()) {
+		return null;
+	}
+
 	return (
 		<div>
-			{pokemonData && (
-				<Link to={`/pokemon/${pokemonData.name}`}>
-					<div className="card w-70 hover:transition-all hover:scale-105 bg-zinc-900 shadow-xl cursor-pointer">
-						<figure className="bg-slate-200 p-5">
-							<img
-								// className="h-60"
-								src={
-									pokemonData.sprites.other.home.front_default
-								}
-								alt={pokemonData.name}
-							/>
-						</figure>
-						<div className="card-body">
-							<h2 className="card-title capitalize">
-								{pokemonData.name} #{pokemonData.id}
-							</h2>
-							<div className="card-actions">
-								{pokemonData.types.map((type, index) => (
-									<Badge key={index} type={type.type.name} />
-								))}
-							</div>
+			<Link to={`/pokemon/${pokemonData.name}`}>
+				<div className="card hover:transition-all hover:scale-105 bg-zinc-900 shadow-xl cursor-pointer">
+					<figure className="bg-slate-200 p-5">
+						<img
+							src={pokemonData.sprites.other.home.front_default}
+							alt={pokemonData.name}
+						/>
+					</figure>
+					<div className="card-body">
+						<h2 className="card-title capitalize">
+							{pokemonData.name} #{pokemonData.id}
+						</h2>
+						<div className="card-actions">
+							{pokemonType.map((type, index) => (
+								<Badge key={index} type={type} />
+							))}
 						</div>
 					</div>
-				</Link>
-			)}
+				</div>
+			</Link>
 		</div>
 	);
 }
