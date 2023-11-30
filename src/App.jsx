@@ -17,7 +17,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Homepage />} />
 						<Route
-							path="/pokemon/:pokemonId"
+							path="/pokemon/:pokemonName"
 							element={<PokemonInfo />}
 						/>
 						<Route path="*" element={<Error />} />

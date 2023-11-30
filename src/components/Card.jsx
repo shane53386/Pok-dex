@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 function Card({ pokemon }) {
 	const [pokemonData, setPokemonData] = useState(null);
 	const [pokemonType, setPokemonType] = useState([]);
-	const { selectedType } = useSelector((state) => state.types);
+	const { selectedType } = useSelector((state) => state.type);
 
 	useEffect(() => {
 		const fetchData = async () => {

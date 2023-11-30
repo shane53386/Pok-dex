@@ -1,19 +1,27 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	pokemons: [],
+	filteredPokemons: [],
+	currentPage: 1,
 };
 
 const pokemonSlice = createSlice({
 	name: "pokemon",
 	initialState,
 	reducers: {
-		getPokemons: (state, action) => {
+		setPokemons: (state, action) => {
 			state.pokemons = action.payload;
-			console.log(current(state));
+		},
+		setFilteredPokemons: (state, action) => {
+			state.filteredPokemons = action.payload;
+		},
+		setCurrentPage: (state, action) => {
+			state.currentPage = action.payload;
 		},
 	},
 });
 
-export const { getPokemons } = pokemonSlice.actions;
+export const { setPokemons, setFilteredPokemons, setCurrentPage } =
+	pokemonSlice.actions;
 export default pokemonSlice.reducer;

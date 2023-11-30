@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	types: [],
@@ -9,16 +9,14 @@ const typeSlice = createSlice({
 	name: "type",
 	initialState,
 	reducers: {
-		getTypes: (state, action) => {
+		setTypes: (state, action) => {
 			state.types = action.payload;
-			console.log(current(state));
 		},
-		getSelectedType: (state, action) => {
+		setSelectedType: (state, action) => {
 			state.selectedType = action.payload;
-			console.log(current(state));
 		},
 	},
 });
 
-export const { getTypes, getSelectedType } = typeSlice.actions;
+export const { setTypes, setSelectedType } = typeSlice.actions;
 export default typeSlice.reducer;

@@ -4,7 +4,7 @@ import TypeReducer from "./TypeReducer";
 
 export default configureStore({
 	reducer: {
-		pokemons: PokemonReducer,
-		types: TypeReducer,
+		pokemon: PokemonReducer,
+		type: TypeReducer,
 	},
 });

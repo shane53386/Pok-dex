@@ -1,34 +1,28 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import Badge from "../components/Badge";
 import Stats from "../components/Stats";
+import pokeAPI from "../api/pokeAPI";
 
 function PokemonInfo() {
-	const { pokemonId } = useParams();
+	const { pokemonName } = useParams();
 	const [pokemonData, setPokemonData] = useState(null);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const abortController = new AbortController();
 		const fetchData = async () => {
-			try {
-				setLoading(true);
-				const response = await axios.get(
-					`https://pokeapi.co/api/v2/pokemon/${pokemonId}`,
-					{
-						signal: abortController.signal,
-					}
-				);
-				setPokemonData(response.data);
-			} catch (error) {
-				console.log(`Something went wrong. ${error}`);
-			} finally {
-				setLoading(false);
-			}
+			setLoading(true);
+			const response = await pokeAPI
+				.get(`/pokemon/${pokemonName}`)
+				.catch((error) => {
+					console.log(`Something went wrong. ${error}`);
+				});
+			setPokemonData(response.data);
+			// setTimeout(() => {
+			setLoading(false);
+			// }, 500);
 		};
 		fetchData();
-		return () => abortController.abort();
 	}, []);
 
 	return (
@@ -38,7 +32,7 @@ function PokemonInfo() {
 			) : (
 				<div
 					className="card w-3/4 lg:card-side bg-zinc-900 shadow-xl"
-					style={{ height: "80vh" }}
+					style={{ height: "75vh" }}
 				>
 					<figure className="bg-slate-200 min-w-fit p-5">
 						<img
@@ -46,7 +40,7 @@ function PokemonInfo() {
 							alt={pokemonData.name}
 						/>
 					</figure>
-					<div className="card-body overflow-auto scroll-smooth snap-y">
+					<div className="card-body overflow-auto scroll-smoothy">
 						<h1 className="card-title capitalize">
 							{pokemonData.name} #{pokemonData.id}
 							<div className="card-actions">
@@ -75,7 +69,7 @@ function PokemonInfo() {
 						</div>
 						<div className="divider" />
 						<div className="snap-start">
-							<div className="card-title  mb-4">Stats</div>
+							<div className="card-title mb-4">Stats</div>
 							<div>
 								<Stats
 									value={pokemonData.stats.map(
